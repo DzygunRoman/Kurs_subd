@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<title>{{title}}</title>
+	<link type="text/css" href="{% static 'hotel/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'hotel/images/main.ico' %}" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<table class="table-page" border=0 cellpadding="0" cellspacing="0">
+<tr><td valign=top>
+{% block mainmenu %}
+		<div class="header">
+			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+{% for m in menu %}
+	{% if not forloop.last %}<li>{% else %}<li class="">{% endif %}
+		<a href="{% url m.url_name %}">{{m.title}}</a></li>
+{% endfor %}
+			</ul>
+			<div class="clear"></div>
+		</div>
+{% endblock mainmenu %}
+<style >
+     body {
+  background-image: url("{% static 'hotel/images/fon1.jpg' %}");
+  background-size: 100%;
+  background-attachment: fixed;
+}
+</style>
+
+<h1 style="margin-left:10%; color:#F3CD26" >{{title}}</h1>
+	<div class="outer">
+		<div class="inner">
+			<form  action="" method="post">
+
+                {% csrf_token %}
+				<p><label for="id_1">Фамилия:</label><input  type="text" id="id_1"  name="famille" /></p>
+				<p><label for="id_2">Имя:</label><input  type="text"  id="id_2"  name="firstName" /></p>
+                <p>Отчество:   <input  type="text" name="lastName" /></p>
+                <p>Дата рождения:<input  type="date" name="birthday" /></p>
+                <p>Паспорт:<input  type="number" name="passport" /></p>
+                <p>Город:<input type="text"  name="city" /></p>
+                <p>Улица:<input  type="text" name="street" /></p>
+                <p>Дом:<input  type="number" name="home" /></p>
+                <p>Квартира:<input  type="number" name="apartment" /></p>
+				<p>Время заезда:<input type="date" name="date_arrival"></p>
+				<p>Время выезда:<input type="date" name="date_departure"></p>
+				<p>Введите номер в гостинице:<select id="number" name="number_hotel">
+					<option value="1">1 люкс</option>
+					<option value="2">2 люкс</option>
+					<option value="3">3 люкс</option>
+					<option value="4">4 полу-люкс</option>
+					<option value="5">5 полу-люкс</option>
+					<option value="6">6 полу-люкс</option>
+					<option value="7">7 стандарт</option>
+					<option value="8">8 стандарт</option>
+					<option value="9">9 стандарт</option>
+					<option value="10">10 стандарт</option>
+					<option value="11">11 стандарт</option>
+					<option value="12">12 стандарт</option>
+				</select>
+				</p>
+                <input type="submit"  name="save" class="f" value="Сохранить" />
+
+            </form>
+		</div>
+	</div>
+
+
+<tr><td valign=top>
+	<div id="footer">
+		<p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
+	</div>
+</td></tr></table>
+
+</body>
+</html>

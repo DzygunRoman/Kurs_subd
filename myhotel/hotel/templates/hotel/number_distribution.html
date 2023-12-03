@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+<!--	<title>{{title}}</title>-->
+	<link type="text/css" href="{% static 'hotel/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'hotel/images/main.ico' %}" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<table class="table-page" border=0 cellpadding="0" cellspacing="0">
+<tr><td valign=top>
+{% block mainmenu %}
+		<div class="header">
+			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+{% for m in menu %}
+	{% if not forloop.last %}<li>{% else %}<li class="">{% endif %}
+		<a href="{% url m.url_name %}">{{m.title}}</a></li>
+{% endfor %}
+			</ul>
+			<div class="clear"></div>
+		</div>
+{% endblock mainmenu %}
+<style >
+     body {
+  background-image: url("{% static 'hotel/images/fon1.jpg' %}");
+  background-size: 100%;
+  background-attachment: fixed;
+}
+</style>
+<!--<h1 style="margin-left:42%; color:#FAEBD7" >{{title}}</h1>-->
+	<div class="outer_s">
+		<div class="inner_s">
+			<form  action="" method="post">
+                {% csrf_token %}
+				<p> Дата заезда:  <input  type="date" name="time_arrival" style="height:20px; width:150px;">
+					Дата отъезда:  <input  type="date" name="time_departure" style="height:20px; width:150px;">
+				</p>
+                <input type="submit"  name="show" class="" value="Показать" style="height:30px; width:130px"/>
+
+            </form>
+		</div>
+	</div>
+
+	<table>
+		<caption>Распределение номеров</caption>
+	<thead>
+	<tr bgcolor="#C9C0BB">
+		<th  scope="col">Клиент</th>
+		<th  scope="col">Обслуживаемый номер</th>
+		<th  scope="col">Категория номера</th>
+        <th  scope="col">Фамилия сотрудника</th>
+        <th  scope="col">Фото сотрудника</th>
+        <th  scope="col">Текущая дата</th>
+
+    </tr>
+    </thead>
+	</table>
+	<div class="scroll-table-body">
+		<table>
+            <tbody>
+            	{% for v in rows %}
+				<tr bgcolor="#FFFFE0">
+	             	<td>{{v.famille}}</td>
+					<td>{{v.number_id}}</td>
+					<td>{{v.category}}</td>
+                    <td>{{v.familleEmp}}</td>
+                    <td><img  class="img-article-left-thumb" src="/media/{{v.photo}}"></td>
+                    <td>{{v.current_date}}</td>
+				</tr>
+	            {% endfor %}
+            </tbody>
+		</table>
+	</div>
+    <tr>
+	    <td valign=top>
+		    <div id="footer">
+			    <p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
+	        </div>
+	    </td>
+    </tr>
+</table>
+
+</body>
+</html>

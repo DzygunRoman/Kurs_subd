@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+	<title>{{title}}</title>
+	<link type="text/css" href="{% static 'hotel/css/styles.css' %}" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="{% static 'hotel/images/main.ico' %}" type="image/x-icon"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<table class="table-page" border=0 cellpadding="0" cellspacing="0">
+<tr><td valign=top>
+{% block mainmenu %}
+		<div class="header">
+			<ul id="mainmenu" class="mainmenu">
+			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+{% for m in menu %}
+	{% if not forloop.last %}<li>{% else %}<li class="">{% endif %}
+		<a href="{% url m.url_name %}">{{m.title}}</a></li>
+{% endfor %}
+			</ul>
+			<div class="clear"></div>
+		</div>
+{% endblock mainmenu %}
+<style >
+     body {
+  background-image: url("{% static 'hotel/images/fon1.jpg' %}");
+  background-size: 100%;
+  background-attachment: fixed;
+}
+</style>
+<h1 style="margin-left:10%; color:#F3CD26">{{title}}</h1>
+	<div class="outer">
+		<div class="inner">
+			<form  action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+				<p><label for="id_1">Фамилия сотрудника:</label><input  type="text" id="id_1"  name="familleEmp" /></p>
+				<p><label for="id_2">Имя сотрудника:</label><input  type="text"  id="id_2"  name="firstNameEmp" /></p>
+                <p>Отчество сотрудника:   <input  type="text" name="lastNameEmp" /></p>
+                <p>Город:<input type="text"  name="cityEmp" /></p>
+                <p>Улица:<input  type="text" name="streetEmp" /></p>
+                <p>Дом:<input  type="number" name="homeEmp" /></p>
+                <p>Квартира:<input  type="number" name="apartmentEmp" /></p>
+				<p>Номер телефона:<input  type="number" name="phone" /></p>
+				<p>{{ form.as_p }} </p>
+                <input type="submit"  name="saveEmp" class="f" value="Сохранить" />
+            </form>
+		</div>
+	</div>
+
+
+<tr><td valign=top>
+	<div id="footer">
+		<p>&copy; 2023 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
+	</div>
+</td></tr></table>
+
+</body>
+</html>
